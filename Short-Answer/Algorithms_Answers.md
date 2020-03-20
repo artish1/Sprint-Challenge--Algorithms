@@ -13,3 +13,13 @@ Since recursive functions repeat itself based on an input, it's O(n).
 Since there are also no other loops in the body, everything else is O(1), leaving with the biggest time complexity being O(n)
 
 ## Exercise II
+
+```python
+def find_breaking_floor(building_floors):
+    for floor_index in range(0, len(building)):
+         if throw_egg(floor_index) == "broken":
+             return floor_index
+```
+
+This is a very simple solution, it's a linear search to find the first floor that the egg breaks at.
+Currently this solution has a runtime complexity of O(n) because the for loop runs n amount of times dependent on the length of the building_floors
