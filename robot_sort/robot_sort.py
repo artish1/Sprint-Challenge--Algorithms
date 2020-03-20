@@ -96,56 +96,28 @@ class SortingRobot:
 
     def reset_position(self):
         # Reset robot's position back to 0
-        # print("Resetting position...")
         while self.can_move_left():
             self.move_left()
-        # print("Reset position")
-
-    def check_if_sorted(self):
-        # If it's sorted, take the first position (should be zero)
-        # self.reset_position()
-        while self.can_move_left():
-            self.move_left()
-
-        # self.swap_item()
-        self.move_right()
-
-        while self.can_move_right():
-            if self.compare_item() == 1:
-                return False
-
-            self.move_right()
-
-            if self.compare_item() == None:
-                return False
-        # if not self.can_move_left():
-        #     if self.compare_item() == None:
-        #         self.swap_item()
-        #         self.set_light_off()
-        return True
-
-    def new_reset(self):
-        while self.can_move_left():
-            self.move_left()
-        self.move_right()
 
     def sort(self):
         """
         Sort the robot's list.
         """
-        while not self.check_if_sorted():
+        # If light is on it means it's sorted, so we loop as long as it's NOT sorted.
+        while not self.light_is_on():
             self.reset_position()
+            # We set the light on initially, it will be set off if we swap an item in the current iteration, meaning the list was not sorted at all, if there were no swaps, list is SORTED.
+            self.set_light_on()
             while self.can_move_right():
                 self.swap_item()
                 self.move_right()
                 if self.compare_item() == 1:
                     self.swap_item()
+                    # Turn the light off because we swapped an item, meaning list is NOT sorted still, so we keep looping next iteration
+                    self.set_light_off()
                 self.move_left()
                 self.swap_item()
                 self.move_right()
-
-            print(f"Current arr: {self._list}")
-            print(f"Held Item: {self._item}")
 
 
 if __name__ == "__main__":
